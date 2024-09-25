@@ -46,7 +46,7 @@ struct TableStruct_cyber_2fexamples_2fproto_2fexamples_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[3]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[4]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -66,6 +66,9 @@ extern DriverDefaultTypeInternal _Driver_default_instance_;
 class SamplesTest1;
 class SamplesTest1DefaultTypeInternal;
 extern SamplesTest1DefaultTypeInternal _SamplesTest1_default_instance_;
+class Student;
+class StudentDefaultTypeInternal;
+extern StudentDefaultTypeInternal _Student_default_instance_;
 }  // namespace proto
 }  // namespace examples
 }  // namespace cyber
@@ -74,6 +77,7 @@ PROTOBUF_NAMESPACE_OPEN
 template<> ::apollo::cyber::examples::proto::Chatter* Arena::CreateMaybeMessage<::apollo::cyber::examples::proto::Chatter>(Arena*);
 template<> ::apollo::cyber::examples::proto::Driver* Arena::CreateMaybeMessage<::apollo::cyber::examples::proto::Driver>(Arena*);
 template<> ::apollo::cyber::examples::proto::SamplesTest1* Arena::CreateMaybeMessage<::apollo::cyber::examples::proto::SamplesTest1>(Arena*);
+template<> ::apollo::cyber::examples::proto::Student* Arena::CreateMaybeMessage<::apollo::cyber::examples::proto::Student>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace apollo {
 namespace cyber {
@@ -642,6 +646,217 @@ class Driver PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::uint64 timestamp_;
   friend struct ::TableStruct_cyber_2fexamples_2fproto_2fexamples_2eproto;
 };
+// -------------------------------------------------------------------
+
+class Student PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:apollo.cyber.examples.proto.Student) */ {
+ public:
+  inline Student() : Student(nullptr) {}
+  virtual ~Student();
+
+  Student(const Student& from);
+  Student(Student&& from) noexcept
+    : Student() {
+    *this = ::std::move(from);
+  }
+
+  inline Student& operator=(const Student& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Student& operator=(Student&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  }
+  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Student& default_instance();
+
+  static inline const Student* internal_default_instance() {
+    return reinterpret_cast<const Student*>(
+               &_Student_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(Student& a, Student& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Student* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Student* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Student* New() const final {
+    return CreateMaybeMessage<Student>(nullptr);
+  }
+
+  Student* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Student>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Student& from);
+  void MergeFrom(const Student& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Student* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "apollo.cyber.examples.proto.Student";
+  }
+  protected:
+  explicit Student(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_cyber_2fexamples_2fproto_2fexamples_2eproto);
+    return ::descriptor_table_cyber_2fexamples_2fproto_2fexamples_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kBooksFieldNumber = 4,
+    kNameFieldNumber = 1,
+    kAgeFieldNumber = 2,
+    kHeightFieldNumber = 3,
+  };
+  // repeated string books = 4;
+  int books_size() const;
+  private:
+  int _internal_books_size() const;
+  public:
+  void clear_books();
+  const std::string& books(int index) const;
+  std::string* mutable_books(int index);
+  void set_books(int index, const std::string& value);
+  void set_books(int index, std::string&& value);
+  void set_books(int index, const char* value);
+  void set_books(int index, const char* value, size_t size);
+  std::string* add_books();
+  void add_books(const std::string& value);
+  void add_books(std::string&& value);
+  void add_books(const char* value);
+  void add_books(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& books() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_books();
+  private:
+  const std::string& _internal_books(int index) const;
+  std::string* _internal_add_books();
+  public:
+
+  // optional string name = 1;
+  bool has_name() const;
+  private:
+  bool _internal_has_name() const;
+  public:
+  void clear_name();
+  const std::string& name() const;
+  void set_name(const std::string& value);
+  void set_name(std::string&& value);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  std::string* mutable_name();
+  std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // optional uint64 age = 2;
+  bool has_age() const;
+  private:
+  bool _internal_has_age() const;
+  public:
+  void clear_age();
+  ::PROTOBUF_NAMESPACE_ID::uint64 age() const;
+  void set_age(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_age() const;
+  void _internal_set_age(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
+  // optional double height = 3;
+  bool has_height() const;
+  private:
+  bool _internal_has_height() const;
+  public:
+  void clear_height();
+  double height() const;
+  void set_height(double value);
+  private:
+  double _internal_height() const;
+  void _internal_set_height(double value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:apollo.cyber.examples.proto.Student)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> books_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 age_;
+  double height_;
+  friend struct ::TableStruct_cyber_2fexamples_2fproto_2fexamples_2eproto;
+};
 // ===================================================================
 
 
@@ -1093,9 +1308,218 @@ inline void Driver::set_timestamp(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   // @@protoc_insertion_point(field_set:apollo.cyber.examples.proto.Driver.timestamp)
 }
 
+// -------------------------------------------------------------------
+
+// Student
+
+// optional string name = 1;
+inline bool Student::_internal_has_name() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool Student::has_name() const {
+  return _internal_has_name();
+}
+inline void Student::clear_name() {
+  name_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& Student::name() const {
+  // @@protoc_insertion_point(field_get:apollo.cyber.examples.proto.Student.name)
+  return _internal_name();
+}
+inline void Student::set_name(const std::string& value) {
+  _internal_set_name(value);
+  // @@protoc_insertion_point(field_set:apollo.cyber.examples.proto.Student.name)
+}
+inline std::string* Student::mutable_name() {
+  // @@protoc_insertion_point(field_mutable:apollo.cyber.examples.proto.Student.name)
+  return _internal_mutable_name();
+}
+inline const std::string& Student::_internal_name() const {
+  return name_.Get();
+}
+inline void Student::_internal_set_name(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void Student::set_name(std::string&& value) {
+  _has_bits_[0] |= 0x00000001u;
+  name_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:apollo.cyber.examples.proto.Student.name)
+}
+inline void Student::set_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000001u;
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:apollo.cyber.examples.proto.Student.name)
+}
+inline void Student::set_name(const char* value,
+    size_t size) {
+  _has_bits_[0] |= 0x00000001u;
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:apollo.cyber.examples.proto.Student.name)
+}
+inline std::string* Student::_internal_mutable_name() {
+  _has_bits_[0] |= 0x00000001u;
+  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* Student::release_name() {
+  // @@protoc_insertion_point(field_release:apollo.cyber.examples.proto.Student.name)
+  if (!_internal_has_name()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  return name_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void Student::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:apollo.cyber.examples.proto.Student.name)
+}
+
+// optional uint64 age = 2;
+inline bool Student::_internal_has_age() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool Student::has_age() const {
+  return _internal_has_age();
+}
+inline void Student::clear_age() {
+  age_ = PROTOBUF_ULONGLONG(0);
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 Student::_internal_age() const {
+  return age_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 Student::age() const {
+  // @@protoc_insertion_point(field_get:apollo.cyber.examples.proto.Student.age)
+  return _internal_age();
+}
+inline void Student::_internal_set_age(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _has_bits_[0] |= 0x00000002u;
+  age_ = value;
+}
+inline void Student::set_age(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_age(value);
+  // @@protoc_insertion_point(field_set:apollo.cyber.examples.proto.Student.age)
+}
+
+// optional double height = 3;
+inline bool Student::_internal_has_height() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool Student::has_height() const {
+  return _internal_has_height();
+}
+inline void Student::clear_height() {
+  height_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline double Student::_internal_height() const {
+  return height_;
+}
+inline double Student::height() const {
+  // @@protoc_insertion_point(field_get:apollo.cyber.examples.proto.Student.height)
+  return _internal_height();
+}
+inline void Student::_internal_set_height(double value) {
+  _has_bits_[0] |= 0x00000004u;
+  height_ = value;
+}
+inline void Student::set_height(double value) {
+  _internal_set_height(value);
+  // @@protoc_insertion_point(field_set:apollo.cyber.examples.proto.Student.height)
+}
+
+// repeated string books = 4;
+inline int Student::_internal_books_size() const {
+  return books_.size();
+}
+inline int Student::books_size() const {
+  return _internal_books_size();
+}
+inline void Student::clear_books() {
+  books_.Clear();
+}
+inline std::string* Student::add_books() {
+  // @@protoc_insertion_point(field_add_mutable:apollo.cyber.examples.proto.Student.books)
+  return _internal_add_books();
+}
+inline const std::string& Student::_internal_books(int index) const {
+  return books_.Get(index);
+}
+inline const std::string& Student::books(int index) const {
+  // @@protoc_insertion_point(field_get:apollo.cyber.examples.proto.Student.books)
+  return _internal_books(index);
+}
+inline std::string* Student::mutable_books(int index) {
+  // @@protoc_insertion_point(field_mutable:apollo.cyber.examples.proto.Student.books)
+  return books_.Mutable(index);
+}
+inline void Student::set_books(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:apollo.cyber.examples.proto.Student.books)
+  books_.Mutable(index)->assign(value);
+}
+inline void Student::set_books(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:apollo.cyber.examples.proto.Student.books)
+  books_.Mutable(index)->assign(std::move(value));
+}
+inline void Student::set_books(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  books_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:apollo.cyber.examples.proto.Student.books)
+}
+inline void Student::set_books(int index, const char* value, size_t size) {
+  books_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:apollo.cyber.examples.proto.Student.books)
+}
+inline std::string* Student::_internal_add_books() {
+  return books_.Add();
+}
+inline void Student::add_books(const std::string& value) {
+  books_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:apollo.cyber.examples.proto.Student.books)
+}
+inline void Student::add_books(std::string&& value) {
+  books_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:apollo.cyber.examples.proto.Student.books)
+}
+inline void Student::add_books(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  books_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:apollo.cyber.examples.proto.Student.books)
+}
+inline void Student::add_books(const char* value, size_t size) {
+  books_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:apollo.cyber.examples.proto.Student.books)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+Student::books() const {
+  // @@protoc_insertion_point(field_list:apollo.cyber.examples.proto.Student.books)
+  return books_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+Student::mutable_books() {
+  // @@protoc_insertion_point(field_mutable_list:apollo.cyber.examples.proto.Student.books)
+  return &books_;
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

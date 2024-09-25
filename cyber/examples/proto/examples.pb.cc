@@ -30,6 +30,10 @@ class DriverDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Driver> _instance;
 } _Driver_default_instance_;
+class StudentDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Student> _instance;
+} _Student_default_instance_;
 }  // namespace proto
 }  // namespace examples
 }  // namespace cyber
@@ -73,7 +77,20 @@ static void InitDefaultsscc_info_SamplesTest1_cyber_2fexamples_2fproto_2fexample
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_SamplesTest1_cyber_2fexamples_2fproto_2fexamples_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_SamplesTest1_cyber_2fexamples_2fproto_2fexamples_2eproto}, {}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_cyber_2fexamples_2fproto_2fexamples_2eproto[3];
+static void InitDefaultsscc_info_Student_cyber_2fexamples_2fproto_2fexamples_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::apollo::cyber::examples::proto::_Student_default_instance_;
+    new (ptr) ::apollo::cyber::examples::proto::Student();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Student_cyber_2fexamples_2fproto_2fexamples_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Student_cyber_2fexamples_2fproto_2fexamples_2eproto}, {}};
+
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_cyber_2fexamples_2fproto_2fexamples_2eproto[4];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_cyber_2fexamples_2fproto_2fexamples_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_cyber_2fexamples_2fproto_2fexamples_2eproto = nullptr;
 
@@ -111,17 +128,32 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_cyber_2fexamples_2fproto_2fexa
   0,
   1,
   2,
+  PROTOBUF_FIELD_OFFSET(::apollo::cyber::examples::proto::Student, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::apollo::cyber::examples::proto::Student, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::apollo::cyber::examples::proto::Student, name_),
+  PROTOBUF_FIELD_OFFSET(::apollo::cyber::examples::proto::Student, age_),
+  PROTOBUF_FIELD_OFFSET(::apollo::cyber::examples::proto::Student, height_),
+  PROTOBUF_FIELD_OFFSET(::apollo::cyber::examples::proto::Student, books_),
+  0,
+  1,
+  2,
+  ~0u,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, 7, sizeof(::apollo::cyber::examples::proto::SamplesTest1)},
   { 9, 18, sizeof(::apollo::cyber::examples::proto::Chatter)},
   { 22, 30, sizeof(::apollo::cyber::examples::proto::Driver)},
+  { 33, 42, sizeof(::apollo::cyber::examples::proto::Student)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::apollo::cyber::examples::proto::_SamplesTest1_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::apollo::cyber::examples::proto::_Chatter_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::apollo::cyber::examples::proto::_Driver_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::apollo::cyber::examples::proto::_Student_default_instance_),
 };
 
 const char descriptor_table_protodef_cyber_2fexamples_2fproto_2fexamples_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -131,21 +163,24 @@ const char descriptor_table_protodef_cyber_2fexamples_2fproto_2fexamples_2eproto
   "\t\"S\n\007Chatter\022\021\n\ttimestamp\030\001 \001(\004\022\027\n\017lidar"
   "_timestamp\030\002 \001(\004\022\013\n\003seq\030\003 \001(\004\022\017\n\007content"
   "\030\004 \001(\014\"<\n\006Driver\022\017\n\007content\030\001 \001(\t\022\016\n\006msg"
-  "_id\030\002 \001(\004\022\021\n\ttimestamp\030\003 \001(\004"
+  "_id\030\002 \001(\004\022\021\n\ttimestamp\030\003 \001(\004\"C\n\007Student\022"
+  "\014\n\004name\030\001 \001(\t\022\013\n\003age\030\002 \001(\004\022\016\n\006height\030\003 \001"
+  "(\001\022\r\n\005books\030\004 \003(\t"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_cyber_2fexamples_2fproto_2fexamples_2eproto_deps[1] = {
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_cyber_2fexamples_2fproto_2fexamples_2eproto_sccs[3] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_cyber_2fexamples_2fproto_2fexamples_2eproto_sccs[4] = {
   &scc_info_Chatter_cyber_2fexamples_2fproto_2fexamples_2eproto.base,
   &scc_info_Driver_cyber_2fexamples_2fproto_2fexamples_2eproto.base,
   &scc_info_SamplesTest1_cyber_2fexamples_2fproto_2fexamples_2eproto.base,
+  &scc_info_Student_cyber_2fexamples_2fproto_2fexamples_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_cyber_2fexamples_2fproto_2fexamples_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_cyber_2fexamples_2fproto_2fexamples_2eproto = {
-  false, false, descriptor_table_protodef_cyber_2fexamples_2fproto_2fexamples_2eproto, "cyber/examples/proto/examples.proto", 268,
-  &descriptor_table_cyber_2fexamples_2fproto_2fexamples_2eproto_once, descriptor_table_cyber_2fexamples_2fproto_2fexamples_2eproto_sccs, descriptor_table_cyber_2fexamples_2fproto_2fexamples_2eproto_deps, 3, 0,
+  false, false, descriptor_table_protodef_cyber_2fexamples_2fproto_2fexamples_2eproto, "cyber/examples/proto/examples.proto", 337,
+  &descriptor_table_cyber_2fexamples_2fproto_2fexamples_2eproto_once, descriptor_table_cyber_2fexamples_2fproto_2fexamples_2eproto_sccs, descriptor_table_cyber_2fexamples_2fproto_2fexamples_2eproto_deps, 4, 0,
   schemas, file_default_instances, TableStruct_cyber_2fexamples_2fproto_2fexamples_2eproto::offsets,
-  file_level_metadata_cyber_2fexamples_2fproto_2fexamples_2eproto, 3, file_level_enum_descriptors_cyber_2fexamples_2fproto_2fexamples_2eproto, file_level_service_descriptors_cyber_2fexamples_2fproto_2fexamples_2eproto,
+  file_level_metadata_cyber_2fexamples_2fproto_2fexamples_2eproto, 4, file_level_enum_descriptors_cyber_2fexamples_2fproto_2fexamples_2eproto, file_level_service_descriptors_cyber_2fexamples_2fproto_2fexamples_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -1049,6 +1084,343 @@ void Driver::InternalSwap(Driver* other) {
 }
 
 
+// ===================================================================
+
+class Student::_Internal {
+ public:
+  using HasBits = decltype(std::declval<Student>()._has_bits_);
+  static void set_has_name(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_age(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_height(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+};
+
+Student::Student(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+  books_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:apollo.cyber.examples.proto.Student)
+}
+Student::Student(const Student& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _has_bits_(from._has_bits_),
+      books_(from.books_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from._internal_has_name()) {
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
+      GetArena());
+  }
+  ::memcpy(&age_, &from.age_,
+    static_cast<size_t>(reinterpret_cast<char*>(&height_) -
+    reinterpret_cast<char*>(&age_)) + sizeof(height_));
+  // @@protoc_insertion_point(copy_constructor:apollo.cyber.examples.proto.Student)
+}
+
+void Student::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Student_cyber_2fexamples_2fproto_2fexamples_2eproto.base);
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+      reinterpret_cast<char*>(&age_) - reinterpret_cast<char*>(this)),
+      0, static_cast<size_t>(reinterpret_cast<char*>(&height_) -
+      reinterpret_cast<char*>(&age_)) + sizeof(height_));
+}
+
+Student::~Student() {
+  // @@protoc_insertion_point(destructor:apollo.cyber.examples.proto.Student)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void Student::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void Student::ArenaDtor(void* object) {
+  Student* _this = reinterpret_cast< Student* >(object);
+  (void)_this;
+}
+void Student::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void Student::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const Student& Student::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Student_cyber_2fexamples_2fproto_2fexamples_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void Student::Clear() {
+// @@protoc_insertion_point(message_clear_start:apollo.cyber.examples.proto.Student)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  books_.Clear();
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    name_.ClearNonDefaultToEmpty();
+  }
+  if (cached_has_bits & 0x00000006u) {
+    ::memset(&age_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&height_) -
+        reinterpret_cast<char*>(&age_)) + sizeof(height_));
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* Student::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // optional string name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          #ifndef NDEBUG
+          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "apollo.cyber.examples.proto.Student.name");
+          #endif  // !NDEBUG
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional uint64 age = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          _Internal::set_has_age(&has_bits);
+          age_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional double height = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 25)) {
+          _Internal::set_has_height(&has_bits);
+          height_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else goto handle_unusual;
+        continue;
+      // repeated string books = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_books();
+            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            #ifndef NDEBUG
+            ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "apollo.cyber.examples.proto.Student.books");
+            #endif  // !NDEBUG
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* Student::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:apollo.cyber.examples.proto.Student)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional string name = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "apollo.cyber.examples.proto.Student.name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_name(), target);
+  }
+
+  // optional uint64 age = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(2, this->_internal_age(), target);
+  }
+
+  // optional double height = 3;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_height(), target);
+  }
+
+  // repeated string books = 4;
+  for (int i = 0, n = this->_internal_books_size(); i < n; i++) {
+    const auto& s = this->_internal_books(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "apollo.cyber.examples.proto.Student.books");
+    target = stream->WriteString(4, s, target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:apollo.cyber.examples.proto.Student)
+  return target;
+}
+
+size_t Student::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:apollo.cyber.examples.proto.Student)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated string books = 4;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(books_.size());
+  for (int i = 0, n = books_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      books_.Get(i));
+  }
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    // optional string name = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_name());
+    }
+
+    // optional uint64 age = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
+          this->_internal_age());
+    }
+
+    // optional double height = 3;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 + 8;
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void Student::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:apollo.cyber.examples.proto.Student)
+  GOOGLE_DCHECK_NE(&from, this);
+  const Student* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Student>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:apollo.cyber.examples.proto.Student)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:apollo.cyber.examples.proto.Student)
+    MergeFrom(*source);
+  }
+}
+
+void Student::MergeFrom(const Student& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:apollo.cyber.examples.proto.Student)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  books_.MergeFrom(from.books_);
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_name(from._internal_name());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      age_ = from.age_;
+    }
+    if (cached_has_bits & 0x00000004u) {
+      height_ = from.height_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+}
+
+void Student::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:apollo.cyber.examples.proto.Student)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Student::CopyFrom(const Student& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:apollo.cyber.examples.proto.Student)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Student::IsInitialized() const {
+  return true;
+}
+
+void Student::InternalSwap(Student* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  books_.InternalSwap(&other->books_);
+  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(Student, height_)
+      + sizeof(Student::height_)
+      - PROTOBUF_FIELD_OFFSET(Student, age_)>(
+          reinterpret_cast<char*>(&age_),
+          reinterpret_cast<char*>(&other->age_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata Student::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace proto
 }  // namespace examples
@@ -1063,6 +1435,9 @@ template<> PROTOBUF_NOINLINE ::apollo::cyber::examples::proto::Chatter* Arena::C
 }
 template<> PROTOBUF_NOINLINE ::apollo::cyber::examples::proto::Driver* Arena::CreateMaybeMessage< ::apollo::cyber::examples::proto::Driver >(Arena* arena) {
   return Arena::CreateMessageInternal< ::apollo::cyber::examples::proto::Driver >(arena);
+}
+template<> PROTOBUF_NOINLINE ::apollo::cyber::examples::proto::Student* Arena::CreateMaybeMessage< ::apollo::cyber::examples::proto::Student >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::apollo::cyber::examples::proto::Student >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 
