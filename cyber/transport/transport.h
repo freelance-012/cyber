@@ -83,6 +83,8 @@ template <typename M>
 auto Transport::CreateTransmitter(const RoleAttributes& attr,
                                   const OptionalMode& mode) ->
     typename std::shared_ptr<Transmitter<M>> {
+  
+  AINFO << "Transport::CreateTransmitter";
   if (is_shutdown_.load()) {
     AINFO << "transport has been shut down.";
     return nullptr;
@@ -95,21 +97,26 @@ auto Transport::CreateTransmitter(const RoleAttributes& attr,
         QosProfileConf::QOS_PROFILE_DEFAULT);
   }
 
+  AINFO << "mode: " << mode;
   switch (mode) {
     case OptionalMode::INTRA:
+      AINFO << "INTRA";
       transmitter = std::make_shared<IntraTransmitter<M>>(modified_attr);
       break;
 
     case OptionalMode::SHM:
+      AINFO << "SHM";
       transmitter = std::make_shared<ShmTransmitter<M>>(modified_attr);
       break;
 
     case OptionalMode::RTPS:
+      AINFO << "RTPS";
       transmitter =
           std::make_shared<RtpsTransmitter<M>>(modified_attr, participant());
       break;
 
     default:
+      AINFO << "Hybird";
       transmitter =
           std::make_shared<HybridTransmitter<M>>(modified_attr, participant());
       break;
@@ -127,6 +134,7 @@ auto Transport::CreateReceiver(
     const RoleAttributes& attr,
     const typename Receiver<M>::MessageListener& msg_listener,
     const OptionalMode& mode) -> typename std::shared_ptr<Receiver<M>> {
+  AINFO << "Transport::CreateReceiver";
   if (is_shutdown_.load()) {
     AINFO << "transport has been shut down.";
     return nullptr;

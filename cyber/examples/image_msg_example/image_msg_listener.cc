@@ -5,15 +5,15 @@
 
 void MessageCallback(
     const std::shared_ptr<apollo::drivers::Image>& msg) {
-  AINFO << "Received message: \n";
-  AINFO << "frame_id: " << msg->frame_id();
-  AINFO << "measurement_time: " << std::to_string(msg->measurement_time());
-  AINFO << "width: " << msg->width();
-  AINFO << "height: " << msg->height();
-  AINFO << "step: " << msg->step();
-  AINFO << "encoding: " << msg->encoding();
-  AINFO << "data.size: " << msg->data().size();
-  AINFO << "-----------------------------";
+  // AINFO << "Received message: \n";
+  // AINFO << "frame_id: " << msg->frame_id();
+  // AINFO << "measurement_time: " << std::to_string(msg->measurement_time());
+  // AINFO << "width: " << msg->width();
+  // AINFO << "height: " << msg->height();
+  // AINFO << "step: " << msg->step();
+  // AINFO << "encoding: " << msg->encoding();
+  // AINFO << "data.size: " << msg->data().size();
+  // AINFO << "-----------------------------";
 
   cv::Mat encoded(msg->data().size(), 1, CV_8UC1, (uint8_t*)(msg->data().data()));
   cv::Mat image = cv::imdecode(encoded, cv::IMREAD_COLOR);

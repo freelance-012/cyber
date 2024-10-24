@@ -122,6 +122,7 @@ Writer<MessageT>::~Writer() {
 
 template <typename MessageT>
 bool Writer<MessageT>::Init() {
+  AINFO << "Writer::Init()";
   {
     std::lock_guard<std::mutex> g(lock_);
     if (init_) {
@@ -130,6 +131,7 @@ bool Writer<MessageT>::Init() {
     transmitter_ =
         transport::Transport::Instance()->CreateTransmitter<MessageT>(
             role_attr_);
+    AINFO << transmitter_.get();
     if (transmitter_ == nullptr) {
       return false;
     }
@@ -166,11 +168,14 @@ bool Writer<MessageT>::Write(const MessageT& msg) {
 template <typename MessageT>
 bool Writer<MessageT>::Write(const std::shared_ptr<MessageT>& msg_ptr) {
   RETURN_VAL_IF(!WriterBase::IsInit(), false);
+
+  // AINFO << "Write";
   return transmitter_->Transmit(msg_ptr);
 }
 
 template <typename MessageT>
 void Writer<MessageT>::JoinTheTopology() {
+  AINFO << "Writer::JoinTheTopology";
   // add listener
   change_conn_ = channel_manager_->AddChangeListener(std::bind(
       &Writer<MessageT>::OnChannelChange, this, std::placeholders::_1));
@@ -179,6 +184,7 @@ void Writer<MessageT>::JoinTheTopology() {
   const std::string& channel_name = this->role_attr_.channel_name();
   std::vector<proto::RoleAttributes> readers;
   channel_manager_->GetReadersOfChannel(channel_name, &readers);
+  AINFO << "readers.size: " << readers.size();
   for (auto& reader : readers) {
     transmitter_->Enable(reader);
   }
@@ -195,6 +201,7 @@ void Writer<MessageT>::LeaveTheTopology() {
 
 template <typename MessageT>
 void Writer<MessageT>::OnChannelChange(const proto::ChangeMsg& change_msg) {
+  AINFO << "Writer::OnChannelChange";
   if (change_msg.role_type() != proto::RoleType::ROLE_READER) {
     return;
   }

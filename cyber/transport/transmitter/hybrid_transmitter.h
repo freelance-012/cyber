@@ -117,6 +117,7 @@ HybridTransmitter<M>::~HybridTransmitter() {
 
 template <typename M>
 void HybridTransmitter<M>::Enable() {
+  AINFO << "HybridTransmitter::Enable()";
   std::lock_guard<std::mutex> lock(mutex_);
   for (auto& item : transmitters_) {
     item.second->Enable();
@@ -163,6 +164,7 @@ void HybridTransmitter<M>::Disable(const RoleAttributes& opposite_attr) {
 template <typename M>
 bool HybridTransmitter<M>::Transmit(const MessagePtr& msg,
                                     const MessageInfo& msg_info) {
+  // AINFO << "HybridTransmitter::Transmit";
   std::lock_guard<std::mutex> lock(mutex_);
   history_->Add(msg, msg_info);
   for (auto& item : transmitters_) {
@@ -208,10 +210,16 @@ void HybridTransmitter<M>::InitHistory() {
 
 template <typename M>
 void HybridTransmitter<M>::InitTransmitters() {
+  AINFO << "HybirdTransmitter::InitTransimitters";
   std::set<OptionalMode> modes;
+  AINFO << "same_proc";
   modes.insert(mode_->same_proc());
+  AINFO << "diff_proc";
   modes.insert(mode_->diff_proc());
+  AINFO << "diff_host";
   modes.insert(mode_->diff_host());
+  AINFO << "modes.size: " << modes.size();
+
   for (auto& mode : modes) {
     switch (mode) {
       case OptionalMode::INTRA:

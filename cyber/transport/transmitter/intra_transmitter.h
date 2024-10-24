@@ -50,7 +50,10 @@ template <typename M>
 IntraTransmitter<M>::IntraTransmitter(const RoleAttributes& attr)
     : Transmitter<M>(attr),
       channel_id_(attr.channel_id()),
-      dispatcher_(nullptr) {}
+      dispatcher_(nullptr) {
+
+  AINFO << "IntraTransmitter Ctor";
+}
 
 template <typename M>
 IntraTransmitter<M>::~IntraTransmitter() {
@@ -76,6 +79,7 @@ void IntraTransmitter<M>::Disable() {
 template <typename M>
 bool IntraTransmitter<M>::Transmit(const MessagePtr& msg,
                                    const MessageInfo& msg_info) {
+  // AINFO << "IntraTransmitter::Transmit";
   if (!this->enabled_) {
     ADEBUG << "not enable.";
     return false;

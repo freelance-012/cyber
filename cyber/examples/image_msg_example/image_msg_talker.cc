@@ -20,12 +20,13 @@ int main(int argc, char *argv[]) {
   auto talker = talker_node->CreateWriter<Image>("channel/image");
   Rate rate(20.0);
   uint64_t seq = 0;
+  AINFO << "begin while";
   while (apollo::cyber::OK()) {
     cv::Mat image = cv::imread("/tmp/lena.jpg", cv::IMREAD_UNCHANGED);
 
     cv::putText(image, std::to_string(seq), cv::Point(30, 30), cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(0, 255, 255), 3);
 
-    AINFO << "image.size: " << image.size() << std::endl;
+    // AINFO << "image.size: " << image.size() << std::endl;
     std::vector<uint8_t> encoded_image;
     cv::imencode(".jpg", image, encoded_image);
 
@@ -42,8 +43,8 @@ int main(int argc, char *argv[]) {
     msg->set_step(image.cols * image.channels());
     msg->set_data(std::string(encoded_image.begin(), encoded_image.end()));
     talker->Write(msg);
-    AINFO << "talker sent a message! No. " << seq;
-    AINFO << "-----------------------------";
+    // AINFO << "talker sent a message! No. " << seq;
+    // AINFO << "-----------------------------";
     seq++;
     rate.Sleep();
   }

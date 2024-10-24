@@ -151,6 +151,7 @@ class NodeChannelImpl {
 template <typename MessageT>
 auto NodeChannelImpl::CreateWriter(const proto::RoleAttributes& role_attr)
     -> std::shared_ptr<Writer<MessageT>> {
+  AINFO << "NodeChannelImpl::CreateWriter";
   if (!role_attr.has_channel_name() || role_attr.channel_name().empty()) {
     AERROR << "Can't create a writer with empty channel name!";
     return nullptr;
@@ -159,6 +160,7 @@ auto NodeChannelImpl::CreateWriter(const proto::RoleAttributes& role_attr)
   FillInAttr<MessageT>(&new_attr);
 
   std::shared_ptr<Writer<MessageT>> writer_ptr = nullptr;
+  AINFO << "is_reality_mode_: " << is_reality_mode_;
   if (!is_reality_mode_) {
     writer_ptr = std::make_shared<blocker::IntraWriter<MessageT>>(new_attr);
   } else {
@@ -203,6 +205,8 @@ auto NodeChannelImpl::CreateReader(const proto::RoleAttributes& role_attr,
                                    const CallbackFunc<MessageT>& reader_func,
                                    uint32_t pending_queue_size)
     -> std::shared_ptr<Reader<MessageT>> {
+
+  AINFO << "NodeChannelImpl::CreateReader()";
   if (!role_attr.has_channel_name() || role_attr.channel_name().empty()) {
     AERROR << "Can't create a reader with empty channel name!";
     return nullptr;
@@ -212,6 +216,7 @@ auto NodeChannelImpl::CreateReader(const proto::RoleAttributes& role_attr,
   FillInAttr<MessageT>(&new_attr);
 
   std::shared_ptr<Reader<MessageT>> reader_ptr = nullptr;
+  AINFO << "is_reality_mode_: " << is_reality_mode_;
   if (!is_reality_mode_) {
     reader_ptr =
         std::make_shared<blocker::IntraReader<MessageT>>(new_attr, reader_func);

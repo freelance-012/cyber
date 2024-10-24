@@ -66,7 +66,10 @@ class IntraReader : public apollo::cyber::Reader<MessageT> {
 template <typename MessageT>
 IntraReader<MessageT>::IntraReader(const proto::RoleAttributes& attr,
                                    const Callback& callback)
-    : Reader<MessageT>(attr), msg_callback_(callback) {}
+    : Reader<MessageT>(attr), msg_callback_(callback) {
+
+  AINFO << "IntraReader Ctor";
+}
 
 template <typename MessageT>
 IntraReader<MessageT>::~IntraReader() {
@@ -75,6 +78,7 @@ IntraReader<MessageT>::~IntraReader() {
 
 template <typename MessageT>
 bool IntraReader<MessageT>::Init() {
+  AINFO << "IntraReader::Init";
   if (this->init_.exchange(true)) {
     return true;
   }
@@ -198,6 +202,8 @@ template <typename MessageT>
 void IntraReader<MessageT>::OnMessage(const MessagePtr& msg_ptr) {
   this->second_to_lastest_recv_time_sec_ = this->latest_recv_time_sec_;
   this->latest_recv_time_sec_ = apollo::cyber::Time::Now().ToSecond();
+  AINFO << "IntraReader::OnMessage";
+  AINFO << &msg_callback_;
   if (msg_callback_ != nullptr) {
     msg_callback_(msg_ptr);
   }

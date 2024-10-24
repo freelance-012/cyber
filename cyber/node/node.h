@@ -246,6 +246,7 @@ auto Node::CreateReader(const std::string& channel_name,
              "exists.";
     return nullptr;
   }
+  AINFO << "reader_func: " << &reader_func;
   auto reader = node_channel_impl_->template CreateReader<MessageT>(
       channel_name, reader_func);
   if (reader != nullptr) {

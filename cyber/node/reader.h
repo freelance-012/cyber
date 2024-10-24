@@ -233,6 +233,7 @@ Reader<MessageT>::Reader(const proto::RoleAttributes& role_attr,
     : ReaderBase(role_attr),
       pending_queue_size_(pending_queue_size),
       reader_func_(reader_func) {
+  AINFO << "Reader Ctor";
   blocker_.reset(new blocker::Blocker<MessageT>(blocker::BlockerAttr(
       role_attr.qos_profile().depth(), role_attr.channel_name())));
 }
@@ -256,6 +257,7 @@ void Reader<MessageT>::Observe() {
 
 template <typename MessageT>
 bool Reader<MessageT>::Init() {
+  AINFO << "Reader::Init()";
   if (init_.exchange(true)) {
     return true;
   }

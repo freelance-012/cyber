@@ -199,6 +199,7 @@ template <typename MessageT>
 auto ReceiverManager<MessageT>::GetReceiver(
     const proto::RoleAttributes& role_attr) ->
     typename std::shared_ptr<transport::Receiver<MessageT>> {
+  AINFO << "ReceiverManager::GetReceiver";
   std::lock_guard<std::mutex> lock(receiver_map_mutex_);
   // because multi reader for one channel will write datacache multi times,
   // so reader for datacache we use map to keep one instance for per channel

@@ -58,7 +58,10 @@ class RtpsTransmitter : public Transmitter<M> {
 template <typename M>
 RtpsTransmitter<M>::RtpsTransmitter(const RoleAttributes& attr,
                                     const ParticipantPtr& participant)
-    : Transmitter<M>(attr), participant_(participant), publisher_(nullptr) {}
+    : Transmitter<M>(attr), participant_(participant), publisher_(nullptr) {
+
+      AINFO << "RtpsTransmitter Ctor";
+}
 
 template <typename M>
 RtpsTransmitter<M>::~RtpsTransmitter() {
@@ -93,6 +96,7 @@ void RtpsTransmitter<M>::Disable() {
 template <typename M>
 bool RtpsTransmitter<M>::Transmit(const MessagePtr& msg,
                                   const MessageInfo& msg_info) {
+  // AINFO << "RtpsTransmitter::Transmit";
   return Transmit(*msg, msg_info);
 }
 

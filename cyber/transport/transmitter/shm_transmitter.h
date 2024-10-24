@@ -63,6 +63,7 @@ ShmTransmitter<M>::ShmTransmitter(const RoleAttributes& attr)
       segment_(nullptr),
       channel_id_(attr.channel_id()),
       notifier_(nullptr) {
+  AINFO << "ShmTransimitter Ctor";
   host_id_ = common::Hash(attr.host_ip());
 }
 
@@ -73,6 +74,7 @@ ShmTransmitter<M>::~ShmTransmitter() {
 
 template <typename M>
 void ShmTransmitter<M>::Enable() {
+  AINFO << "ShmTransmitter::Enable()";
   if (this->enabled_) {
     return;
   }
@@ -99,6 +101,7 @@ bool ShmTransmitter<M>::Transmit(const MessagePtr& msg,
 
 template <typename M>
 bool ShmTransmitter<M>::Transmit(const M& msg, const MessageInfo& msg_info) {
+  // AINFO << "ShmTransmitter::Transmit";
   if (!this->enabled_) {
     ADEBUG << "not enable.";
     return false;
