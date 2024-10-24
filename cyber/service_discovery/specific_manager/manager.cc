@@ -48,6 +48,9 @@ Manager::Manager()
 Manager::~Manager() { Shutdown(); }
 
 bool Manager::StartDiscovery(RtpsParticipant* participant) {
+
+  AINFO << "Manager::StartDiscovery";
+  
   if (participant == nullptr) {
     return false;
   }
@@ -149,6 +152,8 @@ bool Manager::CreatePublisher(RtpsParticipant* participant) {
 }
 
 bool Manager::CreateSubscriber(RtpsParticipant* participant) {
+  AINFO << "Manager::CreateSubscriber";
+  
   RtpsSubscriberAttr sub_attr;
   RETURN_VAL_IF(
       !AttributesFiller::FillInSubAttr(
@@ -186,6 +191,8 @@ void Manager::Convert(const RoleAttributes& attr, RoleType role,
 void Manager::Notify(const ChangeMsg& msg) { signal_(msg); }
 
 void Manager::OnRemoteChange(const std::string& msg_str) {
+  AINFO << "Manager::OnRemoteChange";
+
   if (is_shutdown_.load()) {
     ADEBUG << "the manager has been shut down.";
     return;

@@ -65,6 +65,7 @@ void TopologyManager::RemoveChangeListener(const ChangeConnection& conn) {
 }
 
 bool TopologyManager::Init() {
+  AINFO << "TopologyManager::Init";
   if (init_.exchange(true)) {
     return true;
   }
@@ -93,21 +94,26 @@ bool TopologyManager::Init() {
 }
 
 bool TopologyManager::InitNodeManager() {
+  AINFO << "TopologyManager::InitNodeManager";
   return node_manager_->StartDiscovery(participant_->fastrtps_participant());
 }
 
 bool TopologyManager::InitChannelManager() {
+  AINFO << "TopologyManager::InitChannelManager";
   return channel_manager_->StartDiscovery(participant_->fastrtps_participant());
 }
 
 bool TopologyManager::InitServiceManager() {
+  AINFO << "TopologyManager::InitServiceManager";
   return service_manager_->StartDiscovery(participant_->fastrtps_participant());
 }
 
 bool TopologyManager::CreateParticipant() {
+  AINFO << "TopologyManager::CreateParticipant";
   std::string participant_name =
       common::GlobalData::Instance()->HostName() + '+' +
       std::to_string(common::GlobalData::Instance()->ProcessId());
+  AINFO << "participant_name: " << participant_name;
   participant_listener_ = new ParticipantListener(std::bind(
       &TopologyManager::OnParticipantChange, this, std::placeholders::_1));
   participant_ = std::make_shared<transport::Participant>(
