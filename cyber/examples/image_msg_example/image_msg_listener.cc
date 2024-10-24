@@ -1,7 +1,7 @@
 #include "modules/common_msgs/sensor_msgs/sensor_image.pb.h"
 
 #include "cyber/cyber.h"
-#include <opencv4/opencv2/opencv.hpp>
+#include <opencv2/opencv.hpp>
 
 void MessageCallback(
     const std::shared_ptr<apollo::drivers::Image>& msg) {

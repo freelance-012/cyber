@@ -1,7 +1,8 @@
 #!/usr/bin/bash
 
 _SETUP_PATH=$(cd `dirname $BASH_SOURCE[0]`; pwd)
-USER_HOME_DIR=$(getent passwd $USER | cut -d: -f6)
+#USER_HOME_DIR=$(getent passwd $USER | cut -d: -f6)
+USER_HOME_DIR=/tmp
 
 CYBERRT_PATH=$(dirname "$_SETUP_PATH")
 BUILD_PATH=$_SETUP_PATH

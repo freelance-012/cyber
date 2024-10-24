@@ -5,7 +5,7 @@
 #include "cyber/time/rate.h"
 #include "cyber/time/time.h"
 
-#include <opencv4/opencv2/opencv.hpp>
+#include <opencv2/opencv.hpp>
 
 using apollo::cyber::Rate;
 using apollo::cyber::Time;

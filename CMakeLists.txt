@@ -9,6 +9,12 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release) # Debug/Release
 endif()
 
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
+file(REMOVE_RECURSE ${PROJECT_SOURCE_DIR}/bin)
+file(REMOVE_RECURSE ${PROJECT_SOURCE_DIR}/lib)
+
 enable_language(ASM)
 
 include(CMakePackageConfigHelpers)
@@ -84,6 +90,13 @@ set(DEPENCENCY_LIB_DIRS
   ${Gflags_LIBRARY_DIRS}
   ${NlohmannJson_LIBRARY_DIRS}
 )
+
+message("----------------sgx-------------------")
+
+message(${fastcdr_INCLUDE_DIR})
+message(${fastrtps_INCLUDE_DIR})
+message(${fastcdr_LIB_DIR})
+message(${fastrtps_LIB_DIR})
 
 set(DEPENCENCY_LIBS
   ${glog_LIBRARIES}
