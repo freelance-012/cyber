@@ -191,12 +191,14 @@ class Node {
 template <typename MessageT>
 auto Node::CreateWriter(const proto::RoleAttributes& role_attr)
     -> std::shared_ptr<Writer<MessageT>> {
+  AINFO << "Node::CreateWriter(role_attr)";
   return node_channel_impl_->template CreateWriter<MessageT>(role_attr);
 }
 
 template <typename MessageT>
 auto Node::CreateWriter(const std::string& channel_name)
     -> std::shared_ptr<Writer<MessageT>> {
+  AINFO << "Node::CreateWriter(channel_name)";
   return node_channel_impl_->template CreateWriter<MessageT>(channel_name);
 }
 

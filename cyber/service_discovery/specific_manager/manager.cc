@@ -100,6 +100,7 @@ void Manager::Shutdown() {
 
 bool Manager::Join(const RoleAttributes& attr, RoleType role,
                    bool need_publish) {
+  AINFO << "Manager::Join(attr, role, need_publish)";
   if (is_shutdown_.load()) {
     ADEBUG << "the manager has been shut down.";
     return false;
@@ -152,7 +153,7 @@ bool Manager::CreatePublisher(RtpsParticipant* participant) {
 }
 
 bool Manager::CreateSubscriber(RtpsParticipant* participant) {
-  AINFO << "Manager::CreateSubscriber";
+  AINFO << "Manager::CreateSubscriber(rtps participant)";
   
   RtpsSubscriberAttr sub_attr;
   RETURN_VAL_IF(
