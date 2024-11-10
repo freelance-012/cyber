@@ -181,6 +181,10 @@ class DataVisitor<M0, NullType, NullType, NullType> : public DataVisitorBase {
   }
 
   bool TryFetch(std::shared_ptr<M0>& m0) {  // NOLINT
+    /// 直接调用buffer_的Fetch函数获取buffer内的消息
+    // 消息发布的工作就是向buffer内写数据，消息接收的任务就是从buffer内拿数据  
+    // cyber/data/channel_buffer.h中的ChannelBuffer类 与 cyber/data/cache_buffer.h中的CacheBuffer类
+    // 实现了Fetch函数和Fill函数，用于buffer数据的管理
     if (buffer_.Fetch(&next_msg_index_, m0)) {
       next_msg_index_++;
       return true;

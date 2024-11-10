@@ -259,6 +259,7 @@ bool Reader<MessageT>::Init() {
   if (init_.exchange(true)) {
     return true;
   }
+  /// 进一步封装消息回调函数
   std::function<void(const std::shared_ptr<MessageT>&)> func;
   if (reader_func_ != nullptr) {
     func = [this](const std::shared_ptr<MessageT>& msg) {
@@ -270,6 +271,7 @@ bool Reader<MessageT>::Init() {
   }
   auto sched = scheduler::Instance();
   croutine_name_ = role_attr_.node_name() + "_" + role_attr_.channel_name();
+  /// 创建DataVisitor对象，创建协程。协程中dv->TryFetech(msg)获取消息，然后调用func消息回调函数处理消息。这个函数就是用户写的消息处理函数。
   auto dv = std::make_shared<data::DataVisitor<MessageT>>(
       role_attr_.channel_id(), pending_queue_size_);
   // Using factory to wrap templates.
@@ -281,6 +283,7 @@ bool Reader<MessageT>::Init() {
     return false;
   }
 
+  /// 创建Receiver
   receiver_ = ReceiverManager<MessageT>::Instance()->GetReceiver(role_attr_);
   this->role_attr_.set_id(receiver_->id().HashValue());
   channel_manager_ =

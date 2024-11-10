@@ -54,6 +54,11 @@ void ConditionNotifier::Shutdown() {
   Reset();
 }
 
+/**
+ * readable_info循环地存入了indicator_->infos中
+ * indicator_对象是在ConditionNotifier::Init函数内创建，也是通过共享内存的方式，其大小是有限的
+ * 在同一个主机上的其他进程都可以通过唯一的key(key_ = static_cast(Hash("/apollo/cyber/transport/shm/notifer")) )去访问该内存
+ */
 bool ConditionNotifier::Notify(const ReadableInfo& info) {
   if (is_shutdown_.load()) {
     ADEBUG << "notifier is shutdown.";

@@ -54,6 +54,7 @@ bool Manager::StartDiscovery(RtpsParticipant* participant) {
   if (is_discovery_started_.exchange(true)) {
     return true;
   }
+  /// 这两个函数分别进行ChannelChange消息的发布和ChannelChange消息的接收。都是基于free_rtps库进行通信
   if (!CreatePublisher(participant) || !CreateSubscriber(participant)) {
     AERROR << "create publisher or subscriber failed.";
     StopDiscovery();
@@ -104,8 +105,11 @@ bool Manager::Join(const RoleAttributes& attr, RoleType role,
   RETURN_VAL_IF(!((1 << role) & allowed_role_), false);
   RETURN_VAL_IF(!Check(attr), false);
   ChangeMsg msg;
+  /// 转换成ChangeMsg消息格式
   Convert(attr, role, OperateType::OPT_JOIN, &msg);
+  /// 把当前节点信息加入当前节点的拓扑图中
   Dispose(msg);
+  /// 把当前节点信息发布给远程节点
   if (need_publish) {
     return Publish(msg);
   }
@@ -154,6 +158,7 @@ bool Manager::CreateSubscriber(RtpsParticipant* participant) {
       !AttributesFiller::FillInSubAttr(
           channel_name_, QosProfileConf::QOS_PROFILE_TOPO_CHANGE, &sub_attr),
       false);
+  /// 绑定了一个回调函数Manage::OnRemoteChange，接收到远程节点信息后触发回调函数
   listener_ = new SubscriberListener(
       std::bind(&Manager::OnRemoteChange, this, std::placeholders::_1));
 
@@ -191,12 +196,16 @@ void Manager::OnRemoteChange(const std::string& msg_str) {
     return;
   }
 
+  /// 消息解析
   ChangeMsg msg;
   RETURN_IF(!message::ParseFromString(msg_str, &msg));
+  /// 判断是否来自同一个节点，是的话就返回，这里只处理远程节点
   if (IsFromSameProcess(msg)) {
     return;
   }
+  /// 做一些消息检查工作
   RETURN_IF(!Check(msg.role_attr()));
+  /// 把远程节点信息加入到当前节点的拓扑图中
   Dispose(msg);
 }
 
