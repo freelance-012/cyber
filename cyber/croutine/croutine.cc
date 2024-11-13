@@ -35,9 +35,13 @@ namespace {
 std::shared_ptr<base::CCObjectPool<RoutineContext>> context_pool = nullptr;
 std::once_flag pool_init_flag;
 
+/// @brief 封装func_函数
+/// @param arg 
 void CRoutineEntry(void *arg) {
   CRoutine *r = static_cast<CRoutine *>(arg);
+  /// 其内部是调用func_(CRoutine::Run() { func_(); })
   r->Run();
+  /// 该函数执行完了后就执行Yield操作，切回来
   CRoutine::Yield(RoutineState::FINISHED);
 }
 }  // namespace
@@ -61,6 +65,7 @@ CRoutine::CRoutine(const std::function<void()> &func) : func_(func) {
     context_.reset(new RoutineContext());
   }
 
+  /// 使用CRountineEntry函数构建协程上下文
   MakeContext(CRoutineEntry, this, context_.get());
   state_ = RoutineState::READY;
   updated_.test_and_set(std::memory_order_release);
@@ -68,6 +73,12 @@ CRoutine::CRoutine(const std::function<void()> &func) : func_(func) {
 
 CRoutine::~CRoutine() { context_ = nullptr; }
 
+/**
+ * / 当前主协程到子任务中的切换工作，内部主要通过SwapContext函数来执行。
+ * / SwapContext函数的主要任务是保存当前函数调用栈的上下文，切换到子任务函数调用栈的上下文，从而获得子任务的执行权。
+ * ! 那我们会有个疑问：当切换到子任务完成任务执行后，什么时候切回来？
+ * * 答：其实CRoutine类的构造函数在使用func构建协程context的时候对函数进行了一个封装，当函数执行完后会有一步Yield操作，也就是切换到执行SwapContext函数之后的位置。
+ */
 RoutineState CRoutine::Resume() {
   if (cyber_unlikely(force_stop_)) {
     state_ = RoutineState::FINISHED;
@@ -80,6 +91,7 @@ RoutineState CRoutine::Resume() {
   }
 
   current_routine_ = this;
+  /// 使用SwapContext进行协程切换
   SwapContext(GetMainStack(), GetStack());
   current_routine_ = nullptr;
   return state_;

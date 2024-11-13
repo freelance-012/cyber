@@ -215,6 +215,7 @@ auto ReceiverManager<MessageT>::GetReceiver(
               PerfEventCache::Instance()->AddTransportEvent(
                   TransPerf::DISPATCH, reader_attr.channel_id(),
                   msg_info.seq_num());
+              /// 绑定Dispatch函数，该函数内调用Fill函数向buffer内填充数据
               data::DataDispatcher<MessageT>::Instance()->Dispatch(
                   reader_attr.channel_id(), msg);
               PerfEventCache::Instance()->AddTransportEvent(

@@ -37,24 +37,32 @@ Processor::Processor() { running_.store(true); }
 
 Processor::~Processor() { Stop(); }
 
+/**
+ * / 是线程的执行体，其主要任务是循环遍历，不断获取可以执行的协程任务，执行协程
+ */
 void Processor::Run() {
   tid_.store(static_cast<int>(syscall(SYS_gettid)));
   AINFO << "processor_tid: " << tid_;
   snap_shot_->processor_id.store(tid_);
 
+  /// 循环体
   while (cyber_likely(running_.load())) {
     if (cyber_likely(context_ != nullptr)) {
+      /// 通过context_的NextRoutine函数获取可以执行的写成
       auto croutine = context_->NextRoutine();
       if (croutine) {
         snap_shot_->execute_start_time.store(cyber::Time::Now().ToNanosecond());
         snap_shot_->routine_name = croutine->name();
+        /// 协程切换，执行任务，执行完再切换回来
         croutine->Resume();
         croutine->Release();
       } else {
+        /// 如果没有可用协程，执行Wait等待
         snap_shot_->execute_start_time.store(0);
         context_->Wait();
       }
     } else {
+      /// 如果上下文为空，则线程阻塞10毫秒
       std::unique_lock<std::mutex> lk(mtx_ctx_);
       cv_ctx_.wait_for(lk, std::chrono::milliseconds(10));
     }
@@ -76,6 +84,9 @@ void Processor::Stop() {
   }
 }
 
+/**
+ * / 主要负责classic_context绑定和Processor内线程的创建工作
+ */
 void Processor::BindContext(const std::shared_ptr<ProcessorContext>& context) {
   context_ = context;
   std::call_once(thread_flag_,

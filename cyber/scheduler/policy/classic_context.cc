@@ -49,18 +49,24 @@ void ClassicContext::InitGroup(const std::string& group_name) {
   current_grp = group_name;
 }
 
+/**
+ * / 主要工作是从协程任务池内获取可以执行的任务给Processor执行
+ */
 std::shared_ptr<CRoutine> ClassicContext::NextRoutine() {
   if (cyber_unlikely(stop_.load())) {
     return nullptr;
   }
 
+  /// 从高优先级到低优先级索引
   for (int i = MAX_PRIO - 1; i >= 0; --i) {
+    /// 获取该优先级队列的锁
     ReadLockGuard<AtomicRWLock> lk(lq_->at(i));
     for (auto& cr : multi_pri_rq_->at(i)) {
       if (!cr->Acquire()) {
         continue;
       }
 
+      /// 如果任务状态等于RoutineState::READY 就返回该协程任务cr
       if (cr->UpdateState() == RoutineState::READY) {
         return cr;
       }
@@ -72,10 +78,15 @@ std::shared_ptr<CRoutine> ClassicContext::NextRoutine() {
   return nullptr;
 }
 
+/**
+ * / 负责线程的条件等待，在有限的时间内不满足条件就会处于阻塞状态
+ */
 void ClassicContext::Wait() {
   std::unique_lock<std::mutex> lk(mtx_wrapper_->Mutex());
+  /// 线程条件等待，在1000毫秒的时间阈值内直到notify_grp_[current_grp]大于0，才会取消阻塞向下执行
   cw_->Cv().wait_for(lk, std::chrono::milliseconds(1000),
                      [&]() { return notify_grp_[current_grp] > 0; });
+  /// 如果notify_grp_[current_grp]大于零，自减
   if (notify_grp_[current_grp] > 0) {
     notify_grp_[current_grp]--;
   }
@@ -89,10 +100,15 @@ void ClassicContext::Shutdown() {
   cw_->Cv().notify_all();
 }
 
+/**
+ * / 负责线程唤醒
+ */
 void ClassicContext::Notify(const std::string& group_name) {
+  /// notify_grp_[group_name]自增
   (&mtx_wq_[group_name])->Mutex().lock();
   notify_grp_[group_name]++;
   (&mtx_wq_[group_name])->Mutex().unlock();
+  /// 线程唤醒
   cv_wq_[group_name].Cv().notify_one();
 }
 

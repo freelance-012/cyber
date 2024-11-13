@@ -38,6 +38,10 @@ using apollo::cyber::common::PathExists;
 using apollo::cyber::common::WorkRoot;
 using apollo::cyber::croutine::RoutineState;
 
+/**
+ * Step1. 解析调度配置文件
+ * Step2. 创建Processor
+ */
 SchedulerClassic::SchedulerClassic() {
   std::string conf("conf/");
   conf.append(GlobalData::Instance()->ProcessGroup()).append(".conf");
@@ -81,27 +85,49 @@ SchedulerClassic::SchedulerClassic() {
   CreateProcessor();
 }
 
+/**
+ * / 每创建一个Processor都会创建一个ClassicContext实例与之绑定,ClassicContext功能主要用于管理Processor内的协程任务。
+ * / Processor相当于一个线程执行体，用于执行分配给它的协程任务
+ * / SetSchedAffinity函数内其实就是调用pthread_setaffinity_np将线程绑定到指定的cpu上
+ * / processor_policy参数可以配置线程不同的调度策略：
+ * /    SCHED_OTHER: 分时调度策略，所有线程优先级为0，线程调度通过分时来完成
+ * /    SCHED_FIFO: 实时的先进先出调度策略，表示可运行线程将一直抢占
+ * /    SCHED_RR: 是SCHED_FIFO的一种改进，可以使用最大运行时间来限制当前线程的云心g
+ * / processor_prio参数主要用于配置线程优先级
+ * 
+ */
 void SchedulerClassic::CreateProcessor() {
   for (auto& group : classic_conf_.groups()) {
+    /// group_name
     auto& group_name = group.name();
+    /// proc_num
     auto proc_num = group.processor_num();
     if (task_pool_size_ == 0) {
       task_pool_size_ = proc_num;
     }
 
+    /// affinity
     auto& affinity = group.affinity();
+    /// processor_policy
     auto& processor_policy = group.processor_policy();
+    /// processor_prio
     auto processor_prio = group.processor_prio();
     std::vector<int> cpuset;
     ParseCpuset(group.cpuset(), &cpuset);
 
+    /// 根据proc_num数量创建processors_
     for (uint32_t i = 0; i < proc_num; i++) {
+      /// ClassicContext创建
       auto ctx = std::make_shared<ClassicContext>(group_name);
       pctxs_.emplace_back(ctx);
 
+      /// Processor创建
       auto proc = std::make_shared<Processor>();
+      /// ctx绑定到proc
       proc->BindContext(ctx);
+      /// SetSchedAffinity函数内其实就是调用pthread_setaffinity_np将线程绑定到指定cpu
       SetSchedAffinity(proc->Thread(), cpuset, affinity, i);
+      /// processor_policy可以配置线程的调度策略，processor_prio用于配置线程优先级
       SetSchedPolicy(proc->Thread(), processor_policy, processor_prio,
                      proc->Tid());
       processors_.emplace_back(proc);
@@ -109,11 +135,15 @@ void SchedulerClassic::CreateProcessor() {
   }
 }
 
+/**
+ * / 主要工作是把一个新创建的协程任务加入协程池中
+ */
 bool SchedulerClassic::DispatchTask(const std::shared_ptr<CRoutine>& cr) {
   // we use multi-key mutex to prevent race condition
   // when del && add cr with same crid
+  /// 依据协程id向id_map_mutex_内获取协程锁，
   MutexWrapper* wrapper = nullptr;
-  if (!id_map_mutex_.Get(cr->id(), &wrapper)) {
+  if (!id_map_mutex_.Get(cr->id(), &wrapper)) { /// 没有就创建一个放入id_map_mutex_
     {
       std::lock_guard<std::mutex> wl_lg(cr_wl_mtx_);
       if (!id_map_mutex_.Get(cr->id(), &wrapper)) {
@@ -122,8 +152,9 @@ bool SchedulerClassic::DispatchTask(const std::shared_ptr<CRoutine>& cr) {
       }
     }
   }
-  std::lock_guard<std::mutex> lg(wrapper->Mutex());
 
+  /// 将协程放入协程map
+  std::lock_guard<std::mutex> lg(wrapper->Mutex());
   {
     WriteLockGuard<AtomicRWLock> lk(id_cr_lock_);
     if (id_cr_.find(cr->id()) != id_cr_.end()) {
@@ -132,6 +163,7 @@ bool SchedulerClassic::DispatchTask(const std::shared_ptr<CRoutine>& cr) {
     id_cr_[cr->id()] = cr;
   }
 
+  /// 依据调度配置参数设置协程的任务优先级，group_name等等
   if (cr_confs_.find(cr->name()) != cr_confs_.end()) {
     ClassicTask task = cr_confs_[cr->name()];
     cr->set_priority(task.prio());
@@ -147,6 +179,7 @@ bool SchedulerClassic::DispatchTask(const std::shared_ptr<CRoutine>& cr) {
     cr->set_priority(MAX_PRIO - 1);
   }
 
+  /// 将协程放入对应的优先级队列
   // Enqueue task.
   {
     WriteLockGuard<AtomicRWLock> lk(
@@ -156,6 +189,7 @@ bool SchedulerClassic::DispatchTask(const std::shared_ptr<CRoutine>& cr) {
         .emplace_back(cr);
   }
 
+  /// 唤醒协程所属的group内的processor执行任务
   ClassicContext::Notify(cr->group_name());
   return true;
 }

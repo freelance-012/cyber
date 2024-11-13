@@ -49,6 +49,15 @@ using GRP_WQ_MUTEX = std::unordered_map<std::string, MutexWrapper>;
 using GRP_WQ_CV = std::unordered_map<std::string, CvWrapper>;
 using NOTIFY_GRP = std::unordered_map<std::string, int>;
 
+/**
+ * / Processor实例作为线程的执行体，每个线程的执行体都会绑定一个ClassicContext类实例，
+ * / ClassicContext的主要任务就是负责Processor的任务管理工作，比如：
+ * /    1. 从协程任务池内获取可以执行的任务给processor执行；
+ * /    2. 把指定任务从协程池中移除；
+ * /    3. 唤醒线程；
+ * /    4. 线程等待；
+ * / 等工作。
+ */
 class ClassicContext : public ProcessorContext {
  public:
   ClassicContext();

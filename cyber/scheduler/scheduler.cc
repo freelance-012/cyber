@@ -39,6 +39,9 @@ bool Scheduler::CreateTask(const RoutineFactory& factory,
   return CreateTask(factory.create_routine(), name, factory.GetDataVisitor());
 }
 
+/**
+ * / 该环节主要负责创建协程任务，把该任务加入到任务队列中，同时唤醒所属的group的processor执行任务
+ */
 bool Scheduler::CreateTask(std::function<void()>&& func,
                            const std::string& name,
                            std::shared_ptr<DataVisitorBase> visitor) {
@@ -47,6 +50,7 @@ bool Scheduler::CreateTask(std::function<void()>&& func,
     return false;
   }
 
+  /// 使用传入的func创建协程任务
   auto task_id = GlobalData::RegisterTaskName(name);
 
   auto cr = std::make_shared<CRoutine>(func);
@@ -54,6 +58,7 @@ bool Scheduler::CreateTask(std::function<void()>&& func,
   cr->set_name(name);
   AINFO << "create croutine: " << name;
 
+  /// 创建的协程任务加入任务队列中，同时唤醒所属group内的processor开始处理任务
   if (!DispatchTask(cr)) {
     return false;
   }

@@ -76,6 +76,7 @@ bool TopologyManager::Init() {
 
   CreateParticipant();
 
+  /// 初始化三个对象，分别进行Node, Channel, Service管理。主要通过各自的StartDiscovery()进行拓扑发现
   bool result =
       InitNodeManager() && InitChannelManager() && InitServiceManager();
   if (!result) {
